@@ -1,0 +1,32 @@
+# Virtual environments
+venv/
+env/
+
+# Environment variables 
+.env
+.env.*
+
+# Django database file (development only)
+*.sqlite3
+
+# Python cache and compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+
+# Static and media files 
+staticfiles/
+media/
+
+# IDE/editor settings
+.vscode/
+.idea/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Migrations folder 
+**/migrations/
