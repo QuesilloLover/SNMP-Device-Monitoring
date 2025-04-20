@@ -1,0 +1,9 @@
+<h1>Monitored Devices</h1>
+<a href="{% url 'add_device' %}">Add new device</a>
+<ul>
+    {% for device in devices %}
+    <li>
+        <a href="{% url 'device_info' device.pk %}">{{ device.name }}</a>
+    </li>
+    {% endfor %}
+</ul>
