@@ -4,6 +4,7 @@ class Device(models.Model):
     """
     Stores basic SNMP connection info for a network device.
     """
+    
     name = models.CharField(max_length=100)
     ip_address = models.GenericIPAddressField()
     port = models.PositiveIntegerField(default=161)

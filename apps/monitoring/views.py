@@ -3,6 +3,7 @@ from .models import Device
 from .forms import DeviceForm
 import asyncio
 from pysnmp.hlapi.v3arch.asyncio import *
+from django.http import JsonResponse
 
 async def fetch_snmp_data(device):
     """
@@ -56,6 +57,17 @@ def add_device(request):
         form = DeviceForm()
     return render(request, 'monitoring/add_device.html', {'form': form})
 
+def format_uptime(ticks):
+    """
+    Convert SNMP sysUpTime ticks to a human-readable format.
+    """
+
+    seconds = int(ticks) // 100
+    days, seconds = divmod(seconds, 86400)
+    hours, seconds = divmod(seconds, 3600)
+    minutes, seconds = divmod(seconds, 60)
+    return f"{days}d {hours}m {minutes}s"
+
 def device_info(request, pk):
     """
     Fetch and display SNMP data for a specific device.
@@ -63,7 +75,29 @@ def device_info(request, pk):
     
     device = get_object_or_404(Device, pk=pk)
     snmp_data = asyncio.run(fetch_snmp_data(device))
+    
+    important_info = {}
+    cleaned_snmp_data = []
+
+    for oid, value in snmp_data:
+        if "sysName" in oid:
+            important_info["Name"] = value
+        elif "sysContact" in oid:
+            important_info["Contact"] = value
+        elif "sysUpTime" in oid:
+            important_info["Uptime"] = format_uptime(value)
+        elif "sysServices" in oid:
+            important_info["Services"] = value
+        elif "sysLocation" in oid:
+            important_info["Location"] = value
+        else:
+            cleaned_snmp_data.append((oid, value)) 
+
     return render(request, 'monitoring/device_info.html', {
         'device': device,
-        'snmp_data': snmp_data
+        'snmp_data': cleaned_snmp_data,
+        'important_info': important_info
     })
+
+
+
