@@ -3,43 +3,68 @@
 {% block title %}Add New Device{% endblock %}
 
 {% block content %}
-  <div class="max-w-2xl mx-auto bg-white shadow-lg rounded-lg p-8">
-    <h1 class="text-3xl font-bold text-center text-indigo-600 mb-6">Add New Device</h1>
+<div class="container main">
+  <h1>Add New Device</h1>
 
-    <form method="post" class="space-y-6">
-      {% csrf_token %}
-      <div class="space-y-4">
-        {{ form.as_p }}
-      </div>
-
-      <button type="submit" class="w-full bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-3 rounded-lg transition">
-        Save Device
-      </button>
-    </form>
-
-    <div class="mt-6 text-center">
-      <a href="{% url 'device_list' %}" class="text-indigo-500 hover:text-indigo-700 font-medium">
-        ← Back to list
-      </a>
+  <form method="post" class="form">
+    {% csrf_token %}
+    <div class="form-fields">
+      {{ form.as_p }}
     </div>
-  </div>
 
-  <style>
-    form p {
-      display: flex;
-      flex-direction: column;
-    }
-    form p label {
-      margin-bottom: 0.25rem;
-      font-weight: 500;
-      color: #4a5568;
-    }
-    form p input, form p select, form p textarea {
-      width: 100%;
-      background-color: #f7fafc;
-      padding: 0.5rem;
-      border-radius: 0.375rem;
-      border: 1px solid #d2d6dc;
-    }
-  </style>
+    <button type="submit" class="btn-primary">
+      Save Device
+    </button>
+  </form>
+
+  <div class="mt-6 text-center" style="margin-top: 20px;">
+    <a href="{% url 'device_list' %}" class="nav-link">
+      ← Back to list
+    </a>
+  </div>
+</div>
+
+<style>
+  form p {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+
+  form p label {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #4a5568;
+  }
+
+  form p input, form p select, form p textarea {
+    width: 100%;
+    background-color: #f7fafc;
+    padding: 0.75rem;
+    border-radius: 8px;
+    border: 1px solid #d2d6dc;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+  }
+
+  .btn-primary {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #5b6ac2;
+    color: white;
+    font-weight: 600;
+    text-align: center;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+    margin-top: 1rem;
+  }
+
+  .btn-primary:hover {
+    background-color: #1f2a63;
+  }
+</style>
 {% endblock %}
