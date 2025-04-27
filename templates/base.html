@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}SNMP Monitor{% endblock %}</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+
+<body class="body">
+  <header class="header">
+    <div class="container">
+      <a href="{% url 'device_list' %}" class="logo">
+        SNMP Device Monitor
+      </a>
+      <nav class="nav">
+        <a href="{% url 'device_list' %}" class="nav-link">Devices</a>
+        <a href="{% url 'add_device' %}" class="btn-add-device">+ Add Device</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      &copy; 2025 SNMP Device Monitor. All rights reserved.
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,9 +1,20 @@
-<h1>Monitored Devices</h1>
-<a href="{% url 'add_device' %}">Add new device</a>
-<ul>
+{% extends 'base.html' %}
+
+{% block title %}Monitored Devices{% endblock %}
+
+{% block content %}
+  <h1 class="title">Monitored Devices</h1>
+
+  <ul class="device-list">
     {% for device in devices %}
-    <li>
-        <a href="{% url 'device_info' device.pk %}">{{ device.name }}</a>
+    <li class="device-item">
+      <a href="{% url 'device_info' device.pk %}" class="device-link">
+        {{ device.name }}
+      </a>
+      <p class="device-ip">IP: {{ device.ip_address }}</p>
     </li>
+    {% empty %}
+    <p class="no-devices">No devices are currently monitored.</p>
     {% endfor %}
-</ul>
+  </ul>
+{% endblock %}
